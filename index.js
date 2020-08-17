@@ -1,12 +1,12 @@
 import express from 'express';
 
 const ciphers = {
-  test: 'test'
+  test: 'hovno'
 };
 
 const ciphersRouter = express.Router();
-ciphersRouter.get('/', (req, res) => {
-  res.send(ciphers);
+ciphersRouter.post('/', (req, res) => {
+  res.send(ciphers[req.body.input]);
 });
 
 const app = express();
