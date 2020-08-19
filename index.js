@@ -10,8 +10,9 @@ const cipherSchema = new mongoose.Schema({
   cipherValue: String
 });
 
+const Ciphre = mongoose.model('Ciphre', cipherSchema);
+
 const createCipher = async (cipherKey, cipherValue) => {
-  const Ciphre = mongoose.model('Ciphre', cipherSchema);
   const cipher = new Ciphre({
     cipherKey: cipherKey,
     cipherValue: cipherValue
@@ -19,14 +20,16 @@ const createCipher = async (cipherKey, cipherValue) => {
   await cipher.save();
 };
 
-const ciphers = {
-  test: 'test'
+const getCipher = async cipherKey => {
+  const cipher = await Ciphre.findOne({cipherKey: cipherKey});
+  return cipher;
 };
 
 const ciphersRouter = express.Router();
 
-ciphersRouter.post('/', (req, res) => {
-  res.send(ciphers[req.body.input]);
+ciphersRouter.post('/', async (req, res) => {
+  const cipher = await getCipher(req.body.input);
+  res.send(cipher.cipherValue);
 });
 
 ciphersRouter.post('/create', (req, res) => {
