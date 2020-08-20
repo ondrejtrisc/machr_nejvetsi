@@ -44,7 +44,6 @@ function Home() {
           <input type="submit" />
         </form>
       </div>
-      <a href="/admin">test</a>
     </div>
   );
 }
